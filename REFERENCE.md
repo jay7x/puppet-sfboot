@@ -4,10 +4,133 @@
 
 ## Table of Contents
 
+### Classes
+
+* [`sfboot`](#sfboot): Manage Solarflare Boot ROM parameters
+
 ### Resource types
 
 * [`sfboot_adapter`](#sfboot_adapter): Manage Solarflare per-adapter Boot ROM parameters
 * [`sfboot_global`](#sfboot_global): Manage Solarflare global Boot ROM parameters
+
+### Data types
+
+* [`Sfboot::AdapterParameters`](#Sfboot--AdapterParameters): This type describes Solarflare per-adapter Boot Rom parameters
+
+## Classes
+
+### <a name="sfboot"></a>`sfboot`
+
+Manage Solarflare Boot ROM parameters
+
+#### Parameters
+
+The following parameters are available in the `sfboot` class:
+
+* [`boot_image`](#-sfboot--boot_image)
+* [`port_mode`](#-sfboot--port_mode)
+* [`firmware_variant`](#-sfboot--firmware_variant)
+* [`insecure_filters`](#-sfboot--insecure_filters)
+* [`mac_spoofing`](#-sfboot--mac_spoofing)
+* [`rx_dc_size`](#-sfboot--rx_dc_size)
+* [`change_mac`](#-sfboot--change_mac)
+* [`tx_dc_size`](#-sfboot--tx_dc_size)
+* [`vi_count`](#-sfboot--vi_count)
+* [`event_merge_timeout`](#-sfboot--event_merge_timeout)
+* [`adapters`](#-sfboot--adapters)
+
+##### <a name="-sfboot--boot_image"></a>`boot_image`
+
+Data type: `Optional[Enum['all','optionrom','uefi','disabled']]`
+
+Specifies which boot firmware images are served-up to the BIOS during
+start-up.
+
+Default value: `undef`
+
+##### <a name="-sfboot--port_mode"></a>`port_mode`
+
+Data type: `Optional[Variant[Enum['default'], String[1]]]`
+
+Configure the port mode to use.
+
+Default value: `undef`
+
+##### <a name="-sfboot--firmware_variant"></a>`firmware_variant`
+
+Data type: `Optional[Enum['full-feature','ultra-low-latency','capture-packed-stream','dpdk','auto']]`
+
+Configure the firmware variant to use.
+
+Default value: `undef`
+
+##### <a name="-sfboot--insecure_filters"></a>`insecure_filters`
+
+Data type: `Optional[Enum['default','enabled','disabled']]`
+
+Grant or revoke a privilege to bypass on filter security for non-privileged
+functions on this port.
+
+Default value: `undef`
+
+##### <a name="-sfboot--mac_spoofing"></a>`mac_spoofing`
+
+Data type: `Optional[Enum['default','enabled','disabled']]`
+
+If enabled, non-privileged functions can create unicast filters for MAC
+addresses that are not associated with them.
+
+Default value: `undef`
+
+##### <a name="-sfboot--rx_dc_size"></a>`rx_dc_size`
+
+Data type: `Optional[Variant[Integer[8,8], Integer[16,16], Integer[32,32], Integer[64,64]]]`
+
+Specifies the size of the descriptor cache for each receive queue.
+
+Default value: `undef`
+
+##### <a name="-sfboot--change_mac"></a>`change_mac`
+
+Data type: `Optional[Enum['default','enabled','disabled']]`
+
+Change the unicast MAC address for a non-privileged function on this port.
+
+Default value: `undef`
+
+##### <a name="-sfboot--tx_dc_size"></a>`tx_dc_size`
+
+Data type: `Optional[Variant[Integer[8,8], Integer[16,16], Integer[32,32], Integer[64,64]]]`
+
+Specifies the size of the descriptor cache for each transmit queue.
+
+Default value: `undef`
+
+##### <a name="-sfboot--vi_count"></a>`vi_count`
+
+Data type: `Optional[Integer[0]]`
+
+Sets the total number of virtual interfaces that will be available on the
+NIC.
+
+Default value: `undef`
+
+##### <a name="-sfboot--event_merge_timeout"></a>`event_merge_timeout`
+
+Data type: `Optional[Integer[0]]`
+
+Specifies the timeout (in nanoseconds) for RX event merging.
+
+Default value: `undef`
+
+##### <a name="-sfboot--adapters"></a>`adapters`
+
+Data type: `Hash[String[1], Sfboot::AdapterParameters]`
+
+Hash of adapters and their Boot ROM parameters. This allows to manage
+per-adapter parameters via Hiera.
+
+Default value: `{}`
 
 ## Resource types
 
@@ -216,4 +339,28 @@ namevar
 Data type: `String`
 
 Unused, must be always set to "global"
+
+## Data types
+
+### <a name="Sfboot--AdapterParameters"></a>`Sfboot::AdapterParameters`
+
+See `sfboot_adapter` resource type description for more information on fields.
+
+Alias of
+
+```puppet
+Struct[{
+    link_speed => Optional[Enum['auto','10g','1g','100m']],
+    linkup_delay => Optional[Integer[0,255]],
+    banner_delay => Optional[Integer[0,255]],
+    bootskip_delay => Optional[Integer[0,255]],
+    boot_type => Optional[Enum['pxe','disabled']],
+    pf_count => Optional[Integer[0]],
+    msix_limit => Optional[Variant[Integer[8,8], Integer[16,16], Integer[32,32], Integer[64,64], Integer[128,128], Integer[256,256], Integer[512,512], Integer[1024,1024]]],
+    vf_count => Optional[Integer[0]],
+    vf_msix_limit => Optional[Variant[Integer[1,2], Integer[4,4], Integer[8,8], Integer[16,16], Integer[32,32], Integer[64,64], Integer[128,128], Integer[256,256]]],
+    pf_vlans => Optional[Variant[Enum['none'], Array[Integer[0,4094]]]],
+    switch_mode => Optional[Enum['default','sriov','partitioning','partitioning-with-sriov','pfiov']],
+}]
+```
 

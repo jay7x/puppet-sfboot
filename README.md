@@ -27,8 +27,75 @@ on how to install the Solarflare utilities.
 
 ## Usage
 
-Use `sfboot_adapter` Puppet resource type to manage per-adapter Solaflare NIC
-Boot ROM parameters.
+Use `sfboot` class to manage Solarflare global Boot ROM parameters:
+
+```puppet
+class { 'sfboot':
+  boot_image       => 'all',
+  port_mode        => '[2x10/25g][2x10/25g]',
+  firmware_variant => 'full-feature',
+}
+```
+
+Use `sfboot` class to manage global and per-adapter parameters:
+
+```puppet
+class { 'sfboot':
+  boot_image       => 'all',
+  port_mode        => '[2x10/25g][2x10/25g]',
+  firmware_variant => 'full-feature',
+
+  adapters => {
+    'enp123s0f1' => {
+      boot_type   => 'disabled',
+      switch_mode => 'partitioning-with-sriov',
+      vf_count    => 2,
+      pf_count    => 4,
+      pf_vlans    => [0, 100, 110, 120],
+    },
+  }
+}
+```
+
+Same as above, but configured in Hiera:
+
+```puppet
+include sfboot
+```
+
+```yaml
+sfboot::boot_image: all
+sfboot::port_mode: "[2x10/25g][2x10/25g]"
+sfboot::firmware_variant: "full-feature"
+sfboot::adapters:
+  enp123s0f1:
+    boot_type: disabled
+    switch_mode: "partitioning-with-sriov"
+    vf_count: 2
+    pf_count: 4
+    pf_vlans:
+      - 0
+      - 100
+      - 110
+      - 120
+```
+
+Use `sfboot_global` Puppet resource type directly to manage global Solaflare
+NIC Boot ROM parameters:
+
+```puppet
+sfboot_global { 'global':
+  boot_image       => 'all',
+  port_mode        => '[2x10/25g][2x10/25g]',
+  firmware_variant => 'full-feature',
+}
+```
+
+Please note, that `sfboot_global` resource can only accept `global` title.
+It'll throw an error if any other title is specified.
+
+Use `sfboot_adapter` Puppet resource type directly to manage per-adapter
+Solaflare NIC Boot ROM parameters:
 
 ```puppet
 sfboot_adapter { 'enp123s0f1':
@@ -39,19 +106,6 @@ sfboot_adapter { 'enp123s0f1':
   pf_vlans    => [0, 100, 110, 120],
 }
 ```
-
-Use `sfboot_global` Puppet resource type to manage global Solaflare NIC Boot
-ROM parameters.
-
-```puppet
-sfboot_global { 'global':
-  boot_image       => 'all',
-  port_mode        => '[2x10/25g][2x10/25g]',
-  firmware_variant => 'full-feature',
-}
-```
-
-Please note, that `sfboot_global` resource can only accept `global` title. It'll throw an error if any other title is specified.
 
 ## Reference
 
