@@ -1,0 +1,100 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Manage Solarflare NIC Boot ROM parameters using sfboot tool",
+  "input_method": "stdin",
+  "files": [
+    "ruby_task_helper/files/task_helper.rb",
+    "sfboot/lib/puppet_x/jay7x/sfboot/cli_helper.rb"
+  ],
+  "parameters": {
+    "adapter": {
+      "type": "Optional[String[1]]",
+      "description": "The Solarflare NIC name, parameters of which you want to manage."
+    },
+    "link_speed": {
+      "type": "Optional[Enum['auto','10g','1g','100m']]",
+      "description": "Specifies the Network Link Speed of the Adapter."
+    },
+    "linkup_delay": {
+      "type": "Optional[Integer[0,255]]",
+      "description": "Specifies the delay (in seconds) the adapter defers its first connection attempt after booting"
+    },
+    "banner_delay": {
+      "type": "Optional[Integer[0,255]]",
+      "description": "Specifies the wait period (in seconds) for Ctrl-B to be pressed to enter adapter configuration tool"
+    },
+    "bootskip_delay": {
+      "type": "Optional[Integer[0,255]]",
+      "description": "Specifies the time (in seconds) allowed for Esc to be pressed to skip adapter booting"
+    },
+    "boot_type": {
+      "type": "Optional[Enum['pxe','disabled']]",
+      "description": "Selects the adapter boot type (effective from next reboot)"
+    },
+    "pf_count": {
+      "type": "Optional[Integer[0]]",
+      "description": "This is the number of available PCIe PFs on this physical network port"
+    },
+    "msix_limit": {
+      "type": "Optional[Variant[Integer[8,8], Integer[16,16], Integer[32,32], Integer[64,64], Integer[128,128], Integer[256,256], Integer[512,512], Integer[1024,1024]]]",
+      "description": "Specifies the maximum number of MSI-X interrupts each PF may use"
+    },
+    "vf_count": {
+      "type": "Optional[Integer[0]]",
+      "description": "This is the number of Virtual Functions advertised to the operating system for each Physical Function on this physical network port"
+    },
+    "vf_msix_limit": {
+      "type": "Optional[Variant[Integer[1,2], Integer[4,4], Integer[8,8], Integer[16,16], Integer[32,32], Integer[64,64], Integer[128,128], Integer[256,256]]]",
+      "description": "Specifies the maximum number of MSI-X interrupts each VF may use"
+    },
+    "pf_vlans": {
+      "type": "Optional[Variant[Enum['none'], Array[Integer[0,4094]]]]",
+      "description": "Specifies a VLAN tag (or list of tags) for each PF on the port"
+    },
+    "switch_mode": {
+      "type": "Optional[Enum['default','sriov','partitioning','partitioning-with-sriov','pfiov']]",
+      "description": "Specifies the mode of operation that a port will be used in"
+    },
+    "boot_image": {
+      "type": "Optional[Enum['all','optionrom','uefi','disabled']]",
+      "description": "Specifies which boot firmware images are served-up to the BIOS during start-up"
+    },
+    "port_mode": {
+      "type": "Optional[Variant[Enum['default'], String[1]]]",
+      "description": "Configure the port mode to use"
+    },
+    "firmware_variant": {
+      "type": "Optional[Enum['full-feature','ultra-low-latency','capture-packed-stream','dpdk','auto']]",
+      "description": "Configure the firmware variant to use"
+    },
+    "insecure_filters": {
+      "type": "Optional[Enum['default','enabled','disabled']]",
+      "description": "Grant or revoke a privilege to bypass on filter security for non-privileged functions on this port"
+    },
+    "mac_spoofing": {
+      "type": "Optional[Enum['default','enabled','disabled']]",
+      "description": "If enabled, non-privileged functions can create unicast filters for MAC addresses that are not associated with them"
+    },
+    "rx_dc_size": {
+      "type": "Optional[Variant[Integer[8,8], Integer[16,16], Integer[32,32], Integer[64,64]]]",
+      "description": "Specifies the size of the descriptor cache for each receive queue"
+    },
+    "change_mac": {
+      "type": "Optional[Enum['default','enabled','disabled']]",
+      "description": "Change the unicast MAC address for a non-privileged function on this port."
+    },
+    "tx_dc_size": {
+      "type": "Optional[Variant[Integer[8,8], Integer[16,16], Integer[32,32], Integer[64,64]]]",
+      "description": "Specifies the size of the descriptor cache for each transmit queue"
+    },
+    "vi_count": {
+      "type": "Optional[Integer[0]]",
+      "description": "Sets the total number of virtual interfaces that will be available on the NIC"
+    },
+    "event_merge_timeout": {
+      "type": "Optional[Integer[0]]",
+      "description": "Specifies the timeout (in nanoseconds) for RX event merging"
+    }
+  }
+}
