@@ -148,6 +148,7 @@ describe PuppetX::Sfboot::CliHelper do
       [:tx_dc_size, 16, 'tx-dc-size=16'],
       [:vi_count, 2048, 'vi-count=2048'],
       [:event_merge_timeout, 1500, 'event-merge-timeout=1500'],
+      [:event_merge_timeout, 'default', 'event-merge-timeout=default'],
     ].each do |t|
       specify do
         expect(cli_helper.attr_to_cli(t[0], t[1])).to eq("'#{t[2]}'")
@@ -204,6 +205,7 @@ describe PuppetX::Sfboot::CliHelper do
       ['TX descriptor cache size', :tx_dc_size,  '16', 16],
       ['Total number of VIs', :vi_count, '2048', 2048],
       ['Event merge timeout', :event_merge_timeout, '1500 nanoseconds', 1500],
+      ['Event merge timeout', :event_merge_timeout, 'Default', 'default'],
     ].each do |t|
       specify do
         expect(cli_helper.output_to_attr(t[0], t[2])).to eq([t[1], t[3]])

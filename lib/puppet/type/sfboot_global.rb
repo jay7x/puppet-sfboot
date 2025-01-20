@@ -62,7 +62,7 @@ EOS
       desc: 'Sets the total number of virtual interfaces that will be available on the NIC',
     },
     event_merge_timeout: {
-      type: 'Integer[0]',
+      type: "Variant[Enum['default'], Integer[0]]",
       desc: 'Specifies the timeout (in nanoseconds) for RX event merging',
     },
     name: {

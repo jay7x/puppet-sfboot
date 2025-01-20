@@ -53,8 +53,8 @@ module PuppetX::Sfboot
         },
         'event merge timeout' => {
           name: :event_merge_timeout,
-          parser: 'scanf',
-          scanf: '%d nanoseconds',
+          parser: 'proc',
+          proc: proc { |x| (x.casecmp('default').zero? ? 'default' : x.scanf('%d nanoseconds')[0]) }
         },
         ## Per-adapter params
         'link speed' => {
