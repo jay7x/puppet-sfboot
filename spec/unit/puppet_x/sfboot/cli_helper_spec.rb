@@ -213,6 +213,19 @@ describe PuppetX::Sfboot::CliHelper do
     end
   end
 
+  describe '#version' do
+    it 'parses version properly' do
+      version_output = <<~VERSION
+        Solarflare boot configuration utility [v8.2.4]
+        Copyright 2002-2020 Xilinx, Inc.
+        Solarflare boot configuration utility: v8.2.4.1004
+        VERSION
+
+      expect(Puppet::Util::Execution).to receive(:execute).with(['sfboot', '--version']).and_return(version_output)
+      expect(cli_helper.version).to eq('8.2.4.1004')
+    end
+  end
+
   describe '#run' do
     it 'runs sfboot with proper args' do
       expect(Puppet::Util::Execution).to receive(:execute).with(['sfboot', '-i', 'enp196s0f1np1', "'boot-image=all'"]).and_return(fake_sfboot_output)

@@ -218,6 +218,14 @@ module PuppetX::Sfboot
       [param, value]
     end
 
+    # Return full version from last line of `sfboot --version` output
+    def version
+      out = run(['--version'])
+      last_line = out.split(%r{\R})[-1]
+
+      last_line.match(%r{v(\d+\.\d+\.\d+\.\d+)$})[1]
+    end
+
     # Run sfboot with the parameters specified
     # Undefined args are removed
     def run(args = [])
