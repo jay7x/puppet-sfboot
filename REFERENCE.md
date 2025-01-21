@@ -17,6 +17,10 @@
 
 * [`Sfboot::AdapterParameters`](#Sfboot--AdapterParameters): This type describes Solarflare per-adapter Boot Rom parameters
 
+### Tasks
+
+* [`init`](#init): Manage Solarflare NIC Boot ROM parameters using sfboot tool
+
 ## Classes
 
 ### <a name="sfboot"></a>`sfboot`
@@ -178,6 +182,12 @@ Data type: `Integer[0,255]`
 
 Specifies the time (in seconds) allowed for Esc to be pressed to skip adapter booting
 
+##### `evt_cut_thru`
+
+Data type: `Enum['default','disabled']`
+
+Optionally disable usage of EVT cut thru
+
 ##### `link_speed`
 
 Data type: `Enum['auto','10g','1g','100m']`
@@ -280,7 +290,7 @@ Change the unicast MAC address for a non-privileged function on this port.
 
 ##### `event_merge_timeout`
 
-Data type: `Integer[0]`
+Data type: `Variant[Enum['default'], Integer[0]]`
 
 Specifies the timeout (in nanoseconds) for RX event merging
 
@@ -363,4 +373,152 @@ Struct[{
     switch_mode => Optional[Enum['default','sriov','partitioning','partitioning-with-sriov','pfiov']],
 }]
 ```
+
+## Tasks
+
+### <a name="init"></a>`init`
+
+Manage Solarflare NIC Boot ROM parameters using sfboot tool
+
+**Supports noop?** false
+
+#### Parameters
+
+##### `adapter`
+
+Data type: `Optional[String[1]]`
+
+The Solarflare NIC name, parameters of which you want to manage.
+
+##### `link_speed`
+
+Data type: `Optional[Enum['auto','10g','1g','100m']]`
+
+Specifies the Network Link Speed of the Adapter.
+
+##### `linkup_delay`
+
+Data type: `Optional[Integer[0,255]]`
+
+Specifies the delay (in seconds) the adapter defers its first connection attempt after booting
+
+##### `banner_delay`
+
+Data type: `Optional[Integer[0,255]]`
+
+Specifies the wait period (in seconds) for Ctrl-B to be pressed to enter adapter configuration tool
+
+##### `bootskip_delay`
+
+Data type: `Optional[Integer[0,255]]`
+
+Specifies the time (in seconds) allowed for Esc to be pressed to skip adapter booting
+
+##### `boot_type`
+
+Data type: `Optional[Enum['pxe','disabled']]`
+
+Selects the adapter boot type (effective from next reboot)
+
+##### `pf_count`
+
+Data type: `Optional[Integer[0]]`
+
+This is the number of available PCIe PFs on this physical network port
+
+##### `msix_limit`
+
+Data type: `Optional[Variant[Integer[8,8], Integer[16,16], Integer[32,32], Integer[64,64], Integer[128,128], Integer[256,256], Integer[512,512], Integer[1024,1024]]]`
+
+Specifies the maximum number of MSI-X interrupts each PF may use
+
+##### `vf_count`
+
+Data type: `Optional[Integer[0]]`
+
+This is the number of Virtual Functions advertised to the operating system for each Physical Function on this physical network port
+
+##### `vf_msix_limit`
+
+Data type: `Optional[Variant[Integer[1,2], Integer[4,4], Integer[8,8], Integer[16,16], Integer[32,32], Integer[64,64], Integer[128,128], Integer[256,256]]]`
+
+Specifies the maximum number of MSI-X interrupts each VF may use
+
+##### `pf_vlans`
+
+Data type: `Optional[Variant[Enum['none'], Array[Integer[0,4094]]]]`
+
+Specifies a VLAN tag (or list of tags) for each PF on the port
+
+##### `switch_mode`
+
+Data type: `Optional[Enum['default','sriov','partitioning','partitioning-with-sriov','pfiov']]`
+
+Specifies the mode of operation that a port will be used in
+
+##### `boot_image`
+
+Data type: `Optional[Enum['all','optionrom','uefi','disabled']]`
+
+Specifies which boot firmware images are served-up to the BIOS during start-up
+
+##### `port_mode`
+
+Data type: `Optional[Variant[Enum['default'], String[1]]]`
+
+Configure the port mode to use
+
+##### `firmware_variant`
+
+Data type: `Optional[Enum['full-feature','ultra-low-latency','capture-packed-stream','dpdk','auto']]`
+
+Configure the firmware variant to use
+
+##### `insecure_filters`
+
+Data type: `Optional[Enum['default','enabled','disabled']]`
+
+Grant or revoke a privilege to bypass on filter security for non-privileged functions on this port
+
+##### `mac_spoofing`
+
+Data type: `Optional[Enum['default','enabled','disabled']]`
+
+If enabled, non-privileged functions can create unicast filters for MAC addresses that are not associated with them
+
+##### `rx_dc_size`
+
+Data type: `Optional[Variant[Integer[8,8], Integer[16,16], Integer[32,32], Integer[64,64]]]`
+
+Specifies the size of the descriptor cache for each receive queue
+
+##### `change_mac`
+
+Data type: `Optional[Enum['default','enabled','disabled']]`
+
+Change the unicast MAC address for a non-privileged function on this port.
+
+##### `tx_dc_size`
+
+Data type: `Optional[Variant[Integer[8,8], Integer[16,16], Integer[32,32], Integer[64,64]]]`
+
+Specifies the size of the descriptor cache for each transmit queue
+
+##### `vi_count`
+
+Data type: `Optional[Integer[0]]`
+
+Sets the total number of virtual interfaces that will be available on the NIC
+
+##### `event_merge_timeout`
+
+Data type: `Optional[Integer[0]]`
+
+Specifies the timeout (in nanoseconds) for RX event merging
+
+##### `evt_cut_thru`
+
+Data type: `Enum['default','disabled']`
+
+Optionally disable usage of EVT cut thru
 
