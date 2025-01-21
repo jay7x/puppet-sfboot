@@ -26,6 +26,7 @@ class Puppet::Provider::SfbootAdapter::SfbootAdapter
         vf_count: v[:vf_count],
         vf_msix_limit: v[:vf_msix_limit],
         pf_vlans: v[:pf_vlans],
+        evt_cut_thru: v[:evt_cut_thru],
       }
     end
   end

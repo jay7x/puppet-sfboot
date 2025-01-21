@@ -29,6 +29,7 @@ describe PuppetX::Sfboot::CliHelper do
         vf_count: 0,
         vf_msix_limit: 8,
         pf_vlans: 'none',
+        evt_cut_thru: 'default',
       },
       'enp196s0f1np1' => {
         boot_image: 'all',
@@ -52,6 +53,7 @@ describe PuppetX::Sfboot::CliHelper do
         vf_count: 2,
         vf_msix_limit: 8,
         pf_vlans: [0, 100, 110, 120],
+        evt_cut_thru: 'disabled',
       },
     }
   end
@@ -149,6 +151,8 @@ describe PuppetX::Sfboot::CliHelper do
       [:vi_count, 2048, 'vi-count=2048'],
       [:event_merge_timeout, 1500, 'event-merge-timeout=1500'],
       [:event_merge_timeout, 'default', 'event-merge-timeout=default'],
+      [:evt_cut_thru, 'default', 'evt-cut-thru=default'],
+      [:evt_cut_thru, 'disabled', 'evt-cut-thru=disabled'],
     ].each do |t|
       specify do
         expect(cli_helper.attr_to_cli(t[0], t[1])).to eq("'#{t[2]}'")
@@ -206,6 +210,8 @@ describe PuppetX::Sfboot::CliHelper do
       ['Total number of VIs', :vi_count, '2048', 2048],
       ['Event merge timeout', :event_merge_timeout, '1500 nanoseconds', 1500],
       ['Event merge timeout', :event_merge_timeout, 'Default', 'default'],
+      ['EVT cut thru', :evt_cut_thru, 'Default', 'default'],
+      ['EVT cut thru', :evt_cut_thru, 'Disabled', 'disabled'],
     ].each do |t|
       specify do
         expect(cli_helper.output_to_attr(t[0], t[2])).to eq([t[1], t[3]])
@@ -267,6 +273,7 @@ describe PuppetX::Sfboot::CliHelper do
         TX descriptor cache size              16
         Total number of VIs                   2048
         Event merge timeout                   1500 nanoseconds
+        EVT cut thru                          Default
 
       (Partition map: TLV cursor in broken state initially)
       NIC_INFO
@@ -294,6 +301,7 @@ describe PuppetX::Sfboot::CliHelper do
         TX descriptor cache size              16
         Total number of VIs                   2048
         Event merge timeout                   1500 nanoseconds
+        EVT cut thru                          Disabled
 
       (Partition map: TLV cursor in broken state initially)
       NIC_INFO
