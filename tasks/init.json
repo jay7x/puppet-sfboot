@@ -95,6 +95,10 @@
     "event_merge_timeout": {
       "type": "Optional[Integer[0]]",
       "description": "Specifies the timeout (in nanoseconds) for RX event merging"
+    },
+    "evt_cut_thru": {
+      "type": "Enum['default','disabled']",
+      "description": "Optionally disable usage of EVT cut thru"
     }
   }
 }
