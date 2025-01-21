@@ -39,6 +39,7 @@ describe 'sfboot' do
                 banner_delay: 11,
                 bootskip_delay: 12,
                 boot_type: 'disabled',
+                evt_cut_thru: 'default',
               },
               enp123s0f1: {
                 pf_count: 4,
@@ -47,6 +48,7 @@ describe 'sfboot' do
                 vf_msix_limit: 4,
                 pf_vlans: [0, 100, 110, 120],
                 switch_mode: 'partitioning-with-sriov',
+                evt_cut_thru: 'disabled',
               },
             },
           }
@@ -59,6 +61,7 @@ describe 'sfboot' do
             .with_banner_delay(11)
             .with_bootskip_delay(12)
             .with_boot_type('disabled')
+            .with_evt_cut_thru('default')
         end
 
         it do
@@ -69,6 +72,7 @@ describe 'sfboot' do
             .with_vf_msix_limit(4)
             .with_pf_vlans([0, 100, 110, 120])
             .with_switch_mode('partitioning-with-sriov')
+            .with_evt_cut_thru('disabled')
         end
       end
     end

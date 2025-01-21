@@ -14,4 +14,5 @@ type Sfboot::AdapterParameters = Struct[{
     vf_msix_limit => Optional[Variant[Integer[1,2], Integer[4,4], Integer[8,8], Integer[16,16], Integer[32,32], Integer[64,64], Integer[128,128], Integer[256,256]]],
     pf_vlans => Optional[Variant[Enum['none'], Array[Integer[0,4094]]]],
     switch_mode => Optional[Enum['default','sriov','partitioning','partitioning-with-sriov','pfiov']],
+    evt_cut_thru => Optional[Enum['default','disabled']],
 }]
