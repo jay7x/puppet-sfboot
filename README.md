@@ -120,7 +120,7 @@ See [REFERENCE.md](https://github.com/jay7x/puppet-sfboot/blob/main/REFERENCE.md
   scope.
 * This module was never tested with multiple Solarflare cards on the same
   server.
-* This module is tested with `sfboot` tool v8.2.4
+* This module is tested with `sfboot` tool versions v8.2.4, v8.3.3
 * This module is tested on the following OS list at the moment:
   * Debian 11, 12
 
