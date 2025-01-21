@@ -38,6 +38,7 @@ describe Puppet::Provider::SfbootAdapter::SfbootAdapter do
           vf_count: 0,
           vf_msix_limit: 8,
           pf_vlans: 'none',
+          evt_cut_thru: 'default',
         },
         {
           adapter: 'enp196s0f1np1',
@@ -52,6 +53,7 @@ describe Puppet::Provider::SfbootAdapter::SfbootAdapter do
           vf_count: 2,
           vf_msix_limit: 8,
           pf_vlans: [0, 100, 110, 120],
+          evt_cut_thru: 'disabled',
         },
       ]
     end
@@ -78,6 +80,7 @@ describe Puppet::Provider::SfbootAdapter::SfbootAdapter do
           "'vf-count=0'",
           "'vf-msix-limit=8'",
           "'pf-vlans=none'",
+          "'evt-cut-thru=default'",
         ],
       ).and_return(fake_sfboot_output('enp196s0f1np1'))
 
@@ -101,6 +104,7 @@ describe Puppet::Provider::SfbootAdapter::SfbootAdapter do
               vf_count: 0,
               vf_msix_limit: 8,
               pf_vlans: 'none',
+              evt_cut_thru: 'default',
             },
           },
         },
@@ -140,6 +144,7 @@ describe Puppet::Provider::SfbootAdapter::SfbootAdapter do
         TX descriptor cache size              16
         Total number of VIs                   2048
         Event merge timeout                   1500 nanoseconds
+        EVT cut thru                          Default
 
       (Partition map: TLV cursor in broken state initially)
       NIC_INFO
@@ -167,6 +172,7 @@ describe Puppet::Provider::SfbootAdapter::SfbootAdapter do
         TX descriptor cache size              16
         Total number of VIs                   2048
         Event merge timeout                   1500 nanoseconds
+        EVT cut thru                          Disabled
 
       (Partition map: TLV cursor in broken state initially)
       NIC_INFO

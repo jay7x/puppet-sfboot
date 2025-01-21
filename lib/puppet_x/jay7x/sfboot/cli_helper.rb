@@ -116,6 +116,14 @@ module PuppetX::Sfboot
             'pfiov' => 'pfiov',
           },
         },
+        'evt cut thru' => {
+          name: :evt_cut_thru,
+          parser: 'lookup',
+          lookup: {
+            'default' => 'default',
+            'disabled' => 'disabled',
+          },
+        },
       }
 
       # How to map a type attribute name & value to the CLI option
@@ -147,6 +155,7 @@ module PuppetX::Sfboot
           proc: proc { |x| Array(x).join(',') }
         },
         switch_mode: 'switch-mode',
+        evt_cut_thru: 'evt-cut-thru',
       }
     end
 

@@ -73,5 +73,9 @@ EOS
       type: "Enum['default','sriov','partitioning','partitioning-with-sriov','pfiov']",
       desc: 'Specifies the mode of operation that a port will be used in',
     },
+    evt_cut_thru: {
+      type: "Enum['default','disabled']",
+      desc: 'Optionally disable usage of EVT cut thru',
+    },
   },
 )
