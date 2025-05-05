@@ -50,16 +50,16 @@ describe Puppet::Provider::SfbootGlobal::SfbootGlobal do
       expect(Puppet::Util::Execution).to receive(:execute).with(
         [
           'sfboot',
-          "'boot-image=disabled'",
-          "'port-mode=[2x10/25g][2x10/25g]'",
-          "'firmware-variant=ultra-low-latency'",
-          "'insecure-filters=enabled'",
-          "'mac-spoofing=disabled'",
-          "'change-mac=enabled'",
-          "'rx-dc-size=64'",
-          "'tx-dc-size=32'",
-          "'vi-count=1024'",
-          "'event-merge-timeout=1234'",
+          'boot-image=disabled',
+          'port-mode=[2x10/25g][2x10/25g]',
+          'firmware-variant=ultra-low-latency',
+          'insecure-filters=enabled',
+          'mac-spoofing=disabled',
+          'change-mac=enabled',
+          'rx-dc-size=64',
+          'tx-dc-size=32',
+          'vi-count=1024',
+          'event-merge-timeout=1234',
         ],
       ).and_return(fake_sfboot_output)
 

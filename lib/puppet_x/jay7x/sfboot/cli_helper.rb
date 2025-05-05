@@ -198,7 +198,7 @@ module PuppetX::Sfboot
                 attr_value
               end
 
-      "'#{param}=#{value}'"
+      "#{param}=#{value}"
     end
 
     # Convert raw sfboot output (param name, value text) pair to the resource

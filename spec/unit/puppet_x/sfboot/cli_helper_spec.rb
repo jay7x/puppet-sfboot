@@ -77,8 +77,8 @@ describe PuppetX::Sfboot::CliHelper do
       end
 
       it 'runs sfboot and parses its output correctly' do
-        expect(Puppet::Util::Execution).to receive(:execute).with(['sfboot', "'boot-image=uefi'", "'port-mode=[1x10/25g][1x10/25g]'",
-                                                                   "'firmware-variant=ultra-low-latency'"]).and_return(fake_sfboot_output)
+        expect(Puppet::Util::Execution).to receive(:execute).with(['sfboot', 'boot-image=uefi', 'port-mode=[1x10/25g][1x10/25g]',
+                                                                   'firmware-variant=ultra-low-latency']).and_return(fake_sfboot_output)
 
         expect(cli_helper.set_attrs(attrs)).to eq(sfboot_params)
       end
@@ -94,7 +94,7 @@ describe PuppetX::Sfboot::CliHelper do
       end
 
       it 'runs sfboot and parses its output correctly' do
-        expect(Puppet::Util::Execution).to receive(:execute).with(['sfboot', '-i', 'enp196s0f1np1', "'link-speed=10g'", "'boot-type=PXE'", "'switch-mode=pfiov'"]).and_return(fake_sfboot_output)
+        expect(Puppet::Util::Execution).to receive(:execute).with(['sfboot', '-i', 'enp196s0f1np1', 'link-speed=10g', 'boot-type=PXE', 'switch-mode=pfiov']).and_return(fake_sfboot_output)
 
         expect(cli_helper.set_attrs(attrs, 'enp196s0f1np1')).to eq(sfboot_params)
       end
@@ -155,7 +155,7 @@ describe PuppetX::Sfboot::CliHelper do
       [:evt_cut_thru, 'disabled', 'evt-cut-thru=disabled'],
     ].each do |t|
       specify do
-        expect(cli_helper.attr_to_cli(t[0], t[1])).to eq("'#{t[2]}'")
+        expect(cli_helper.attr_to_cli(t[0], t[1])).to eq(t[2])
       end
     end
   end
@@ -234,9 +234,9 @@ describe PuppetX::Sfboot::CliHelper do
 
   describe '#run' do
     it 'runs sfboot with proper args' do
-      expect(Puppet::Util::Execution).to receive(:execute).with(['sfboot', '-i', 'enp196s0f1np1', "'boot-image=all'"]).and_return(fake_sfboot_output)
+      expect(Puppet::Util::Execution).to receive(:execute).with(['sfboot', '-i', 'enp196s0f1np1', 'boot-image=all']).and_return(fake_sfboot_output)
 
-      cli_helper.run(['-i', 'enp196s0f1np1', "'boot-image=all'"])
+      cli_helper.run(['-i', 'enp196s0f1np1', 'boot-image=all'])
     end
   end
 
